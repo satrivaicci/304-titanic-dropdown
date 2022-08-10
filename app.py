@@ -18,12 +18,12 @@ githublink = 'https://github.com/plotly-dash-apps/304-titanic-dropdown'
 
 
 ###### Import a dataframe #######
-df_drinks = pd.read_csv("https://raw.git.generalassemb.ly/intuit-ds-15/05-cleaning-combining-data/master/data/drinks.csv?token=AAAK2H43E5OWLGL6F7TI2OLC7RDXQ")
-df = pd.read_csv("https://raw.githubusercontent.com/austinlasseter/plotly_dash_tutorial/master/00%20resources/titanic.csv")
-df['Female']=df['Sex'].map({'male':0, 'female':1})
-df['Cabin Class'] = df['Pclass'].map({1:'first', 2: 'second', 3:'third'})
+df = pd.read_csv("https://raw.git.generalassemb.ly/intuit-ds-15/05-cleaning-combining-data/master/data/drinks.csv?token=AAAK2H43E5OWLGL6F7TI2OLC7RDXQ")
+# df = pd.read_csv("https://raw.githubusercontent.com/austinlasseter/plotly_dash_tutorial/master/00%20resources/titanic.csv")
+# df['Female']=df['Sex'].map({'male':0, 'female':1})
+# df['Cabin Class'] = df['Pclass'].map({1:'first', 2: 'second', 3:'third'})
 # variables_list=['Survived', 'Female', 'Fare', 'Age']
-variables_list=df_drinks['country']
+variables_list=df['continent']
 
 ########### Initiate the app
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
@@ -33,7 +33,7 @@ app.title=tabtitle
 
 ####### Layout of the app ########
 app.layout = html.Div([
-    html.H3('Choose a continuous variable for summary statistics:'),
+    html.H3('Choose the continent you want to see drinks statistics for:'),
     dcc.Dropdown(
         id='dropdown',
         options=[{'label': i, 'value': i} for i in variables_list],
@@ -51,31 +51,31 @@ app.layout = html.Div([
 @app.callback(Output('display-value', 'figure'),
               [Input('dropdown', 'value')])
 def display_value(continuous_var):
-    grouped_mean=df.groupby(['Cabin Class', 'Embarked'])[continuous_var].mean()
+    grouped_mean=df.groupby(['continent'])[continuous_var].mean()
     results=pd.DataFrame(grouped_mean)
     # Create a grouped bar chart
     mydata1 = go.Bar(
-        x=results.loc['first'].index,
-        y=results.loc['first'][continuous_var],
-        name='First Class',
+        x=results.loc['beer_servings'].index,
+        y=results.loc['beer_servings'][continuous_var],
+        name='Beer servings',
         marker=dict(color=color1)
     )
     mydata2 = go.Bar(
-        x=results.loc['second'].index,
-        y=results.loc['second'][continuous_var],
-        name='Second Class',
+        x=results.loc['spirit_servings'].index,
+        y=results.loc['spirit_servings'][continuous_var],
+        name='Spirit servings',
         marker=dict(color=color2)
     )
     mydata3 = go.Bar(
-        x=results.loc['third'].index,
-        y=results.loc['third'][continuous_var],
-        name='Third Class',
+        x=results.loc['wine_servings'].index,
+        y=results.loc['wine_servings'][continuous_var],
+        name='Wine servings',
         marker=dict(color=color3)
     )
 
     mylayout = go.Layout(
-        title='Grouped bar chart',
-        xaxis = dict(title = 'Port of Embarkation'), # x-axis label
+        title='Drinks statistics per continent bar chart',
+        xaxis = dict(title = 'Servings category'), # x-axis label
         yaxis = dict(title = str(continuous_var)), # y-axis label
 
     )
