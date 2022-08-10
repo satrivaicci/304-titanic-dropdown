@@ -18,10 +18,12 @@ githublink = 'https://github.com/plotly-dash-apps/304-titanic-dropdown'
 
 
 ###### Import a dataframe #######
+df_drinks = pd.read_csv("https://raw.git.generalassemb.ly/intuit-ds-15/05-cleaning-combining-data/master/data/drinks.csv?token=AAAK2H43E5OWLGL6F7TI2OLC7RDXQ")
 df = pd.read_csv("https://raw.githubusercontent.com/austinlasseter/plotly_dash_tutorial/master/00%20resources/titanic.csv")
 df['Female']=df['Sex'].map({'male':0, 'female':1})
 df['Cabin Class'] = df['Pclass'].map({1:'first', 2: 'second', 3:'third'})
-variables_list=['Survived', 'Female', 'Fare', 'Age']
+# variables_list=['Survived', 'Female', 'Fare', 'Age']
+variables_list=df_drinks['country']
 
 ########### Initiate the app
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
