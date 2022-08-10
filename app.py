@@ -9,7 +9,7 @@ import plotly.graph_objs as go
 
 
 ###### Define your variables #####
-tabtitle = 'Titanic!'
+tabtitle = 'Drinks!'
 color1='#92A5E8'
 color2='#8E44AD'
 color3='#FFC300'
@@ -23,7 +23,7 @@ df = pd.read_csv("https://raw.git.generalassemb.ly/intuit-ds-15/05-cleaning-comb
 # df['Female']=df['Sex'].map({'male':0, 'female':1})
 # df['Cabin Class'] = df['Pclass'].map({1:'first', 2: 'second', 3:'third'})
 # variables_list=['Survived', 'Female', 'Fare', 'Age']
-variables_list=df['continent']
+variables_list=pd.unique(df['continent'].map({'NA':'North America', 'SA':'South America', 'EU':'Europe', 'AF':'Africa', 'OC': 'Oceania', 'AS': 'Asia'}))
 
 ########### Initiate the app
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
