@@ -23,7 +23,8 @@ df = pd.read_csv("https://raw.git.generalassemb.ly/intuit-ds-15/05-cleaning-comb
 # df['Female']=df['Sex'].map({'male':0, 'female':1})
 # df['Cabin Class'] = df['Pclass'].map({1:'first', 2: 'second', 3:'third'})
 # variables_list=['Survived', 'Female', 'Fare', 'Age']
-variables_list=pd.unique(df['continent'].map({'NA':'North America', 'SA':'South America', 'EU':'Europe', 'AF':'Africa', 'OC': 'Oceania', 'AS': 'Asia'}))
+df['continent_name'] = df['continent'].map({ 'NA':'North America', 'SA':'South America', 'EU':'Europe', 'AF':'Africa', 'OC': 'Oceania', 'AS': 'Asia' })
+variables_list=pd.unique(df['continent_name'])
 
 ########### Initiate the app
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
@@ -51,7 +52,7 @@ app.layout = html.Div([
 @app.callback(Output('display-value', 'figure'),
               [Input('dropdown', 'value')])
 def display_value(continuous_var):
-    grouped_mean=df.groupby(['continent'])[continuous_var].mean()
+    grouped_mean=df.groupby(['continent_name'])[continuous_var].mean()
     results=pd.DataFrame(grouped_mean)
     # Create a grouped bar chart
     mydata1 = go.Bar(
