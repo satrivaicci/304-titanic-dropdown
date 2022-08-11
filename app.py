@@ -51,36 +51,22 @@ app.layout = html.Div([
 ######### Interactive callbacks go here #########
 @app.callback(Output('display-value', 'figure'),
               [Input('dropdown', 'value')])
-def display_value(continuous_var):
-    grouped_mean=df.groupby(['continent_name'])[continuous_var].mean()
+def display_value(continent):
+    grouped_mean=df.groupby(['continent_name']).mean()
     results=pd.DataFrame(grouped_mean)
-    # Create a grouped bar chart
+    # Create a stats by continent bar chart
     mydata1 = go.Bar(
-        x=results.loc['beer_servings'].index,
-        y=results.loc['beer_servings'][continuous_var],
-        name='Beer servings',
+        x=results.loc[continent].index,
+        y=results.loc[continent],
         marker=dict(color=color1)
     )
-    mydata2 = go.Bar(
-        x=results.loc['spirit_servings'].index,
-        y=results.loc['spirit_servings'][continuous_var],
-        name='Spirit servings',
-        marker=dict(color=color2)
-    )
-    mydata3 = go.Bar(
-        x=results.loc['wine_servings'].index,
-        y=results.loc['wine_servings'][continuous_var],
-        name='Wine servings',
-        marker=dict(color=color3)
-    )
-
     mylayout = go.Layout(
         title='Drinks statistics per continent bar chart',
         xaxis = dict(title = 'Servings category'), # x-axis label
-        yaxis = dict(title = str(continuous_var)), # y-axis label
+        yaxis = dict(title = str(continent)), # y-axis label
 
     )
-    fig = go.Figure(data=[mydata1, mydata2, mydata3], layout=mylayout)
+    fig = go.Figure(data=[mydata1], layout=mylayout)
     return fig
 
 
