@@ -42,6 +42,9 @@ app.layout = html.Div([
     ),
     html.Br(),
     dcc.Graph(id='display-value'),
+    dcc.Graph(id='pie1-value'),
+    dcc.Graph(id='pie2-value'),
+    dcc.Graph(id='pie3-value'),
     html.A('Code on Github', href=githublink),
     html.Br(),
     html.A("Data Source", href=sourceurl),
@@ -50,6 +53,7 @@ app.layout = html.Div([
 
 ######### Interactive callbacks go here #########
 @app.callback(Output('display-value', 'figure'),
+              Output('pie1-value', 'figure'),
               [Input('dropdown', 'value')])
 def display_value(continent):
     grouped_mean=df.groupby(['continent_name']).mean()
@@ -67,7 +71,23 @@ def display_value(continent):
 
     )
     fig = go.Figure(data=[mydata1], layout=mylayout)
-    return fig
+    
+    
+    pie1Data = go.Pie(
+        labels=df.loc[df['continent_name'] == continent]['country'],
+        values=df.loc[df['continent_name'] == continent]['beer_servings']
+    )
+
+    pie1Layout = go.Layout(
+        title='Beer servings per country',
+        xaxis = dict(title = 'Country'), # x-axis label
+        yaxis = dict(title = 'Beer servings qty. (Mean)'), # y-axis label
+
+    )
+    pie1 = go.Figure(data=[pie1Data], layout=pie1Layout)
+    
+    
+    return fig, pie1
 
 
 ######### Run the app #########
