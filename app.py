@@ -24,7 +24,7 @@ df = pd.read_csv("https://raw.git.generalassemb.ly/intuit-ds-15/05-cleaning-comb
 # df['Cabin Class'] = df['Pclass'].map({1:'first', 2: 'second', 3:'third'})
 # variables_list=['Survived', 'Female', 'Fare', 'Age']
 df['continent_name'] = df['continent'].map({ 'NA':'North America', 'SA':'South America', 'EU':'Europe', 'AF':'Africa', 'OC': 'Oceania', 'AS': 'Asia' })
-variables_list=pd.unique(df['continent_name'])
+variables_list=pd.unique(df['continent'])
 
 ########### Initiate the app
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
