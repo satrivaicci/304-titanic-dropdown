@@ -68,8 +68,8 @@ def display_value(continent):
     )
     mylayout = go.Layout(
         title='Drinks statistics per continent bar chart',
-        xaxis = dict(title = 'Servings category'), # x-axis label
-        yaxis = dict(title = str(continent)), # y-axis label
+        xaxis = dict(title = 'Drink category'), # x-axis label
+        yaxis = dict(title = 'Servings qty. (Mean)'), # y-axis label
 
     )
     fig = go.Figure(data=[mydata1], layout=mylayout)
