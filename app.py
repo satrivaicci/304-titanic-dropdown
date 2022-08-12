@@ -60,6 +60,7 @@ app.layout = html.Div([
 def display_value(continent):
     grouped_mean=df.groupby(['continent_name']).mean()
     results=pd.DataFrame(grouped_mean)
+    results=results.drop(columns=['total_litres_of_pure_alcohol'])
     # Create a stats by continent bar chart
     mydata1 = go.Bar(
         x=results.loc[continent].index,
@@ -67,7 +68,7 @@ def display_value(continent):
         marker=dict(color=color1)
     )
     mylayout = go.Layout(
-        title='Drinks statistics per continent bar chart',
+        title='Servings per category',
         xaxis = dict(title = 'Drink category'), # x-axis label
         yaxis = dict(title = 'Servings qty. (Mean)'), # y-axis label
 
