@@ -54,6 +54,8 @@ app.layout = html.Div([
 ######### Interactive callbacks go here #########
 @app.callback(Output('display-value', 'figure'),
               Output('pie1-value', 'figure'),
+              Output('pie2-value', 'figure'),
+              Output('pie3-value', 'figure'),
               [Input('dropdown', 'value')])
 def display_value(continent):
     grouped_mean=df.groupby(['continent_name']).mean()
