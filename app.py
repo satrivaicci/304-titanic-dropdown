@@ -73,6 +73,7 @@ def display_value(continent):
     fig = go.Figure(data=[mydata1], layout=mylayout)
     
     
+    # Pie 1 - Beer
     pie1Data = go.Pie(
         labels=df.loc[df['continent_name'] == continent]['country'],
         values=df.loc[df['continent_name'] == continent]['beer_servings']
@@ -84,10 +85,45 @@ def display_value(continent):
         yaxis = dict(title = 'Beer servings qty. (Mean)'), # y-axis label
 
     )
+
     pie1 = go.Figure(data=[pie1Data], layout=pie1Layout)
+    pie1.update_traces(textposition='inside', textinfo='percent+label')
     
     
-    return fig, pie1
+    # Pie 2 - Wine
+    pie2Data = go.Pie(
+        labels=df.loc[df['continent_name'] == continent]['country'],
+        values=df.loc[df['continent_name'] == continent]['wine_servings']
+    )
+
+    pie2Layout = go.Layout(
+        title='Wine servings per country',
+        xaxis = dict(title = 'Country'), # x-axis label
+        yaxis = dict(title = 'Wine servings qty. (Mean)'), # y-axis label
+
+    )
+
+    pie2 = go.Figure(data=[pie2Data], layout=pie2Layout)
+    pie2.update_traces(textposition='inside', textinfo='percent+label')
+    
+    
+    # Pie 3 - Spirit
+    pie3Data = go.Pie(
+        labels=df.loc[df['continent_name'] == continent]['country'],
+        values=df.loc[df['continent_name'] == continent]['spirit_servings']
+    )
+
+    pie3Layout = go.Layout(
+        title='Spirit servings per country',
+        xaxis = dict(title = 'Country'), # x-axis label
+        yaxis = dict(title = 'Spirit servings qty. (Mean)'), # y-axis label
+
+    )
+
+    pie3 = go.Figure(data=[pie3Data], layout=pie3Layout)
+    pie3.update_traces(textposition='inside', textinfo='percent+label')
+    
+    return fig, pie1, pie2, pie3
 
 
 ######### Run the app #########
